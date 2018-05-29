@@ -1,0 +1,26 @@
+{
+  "name": "debugging-cheatsheet-extension",
+  "version": "0.0.1",
+  "description": "A browser extension for Chrome for debugging cheatsheet",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/semagarcia/debugging-cheatsheet-extension.git"
+  },
+  "keywords": [
+    "extension",
+    "chrome",
+    "debug",
+    "debugging",
+    "cheatsheet"
+  ],
+  "author": "Sema García",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/semagarcia/debugging-cheatsheet-extension/issues"
+  },
+  "homepage": "https://github.com/semagarcia/debugging-cheatsheet-extension#readme"
+}
