@@ -1,2 +1,2 @@
 # debugging-cheatsheet-extension
-A browser extension for Chrome for debugging cheatsheet
+A browser extension for Chrome for web debugging cheatsheet
