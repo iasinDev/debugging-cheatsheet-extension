@@ -1,13 +1,325 @@
 <!-- https://developer.chrome.com/extensions/devguide -->
 <html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="popup.css">
-    </head>
-    <body>
-        Holaaa!
-        <button id="myBtn">CC</button>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="popup.css">
 
-        <!-- -->
-        <script src="popup.js"></script>
-    </body>
+    <!-- Materialize CSS -->
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">-->
+
+    <!-- Get MDL-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <!--<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>-->
+    <script src="libs/getmdl.js"></script>
+
+    <!-- Roboto font -->
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+</head>
+<body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+        <header class="mdl-layout__header">
+            <div class="mdl-layout__header-row">
+                <!-- Title -->
+                <span class="mdl-layout-title">Debugger Web CheatSheet</span>
+                <!-- Add spacer, to align navigation to the right -->
+                <div class="mdl-layout-spacer"></div>
+                <!-- Navigation. We hide it in small screens. -->
+                <nav class="mdl-navigation">
+                    <a class="mdl-navigation__link no-focus" href="">Contributors</a>
+                    <a class="mdl-navigation__link no-focus" href="">Help</a>
+                    <a class="mdl-navigation__link no-focus" href="">About</a>
+                </nav>
+            </div>
+        </header>
+        <main class="mdl-layout__content">
+            <div class="page-content">
+                <!-- Content -->
+                <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+                    <!-- Tabs -->
+                    <div class="mdl-tabs__tab-bar">
+                        <a href="#rendering-frame-pipeline" class="mdl-tabs__tab is-active">Rendering Frame</a>
+                        <a href="#thresholds" class="mdl-tabs__tab">Thresholds</a>
+                        <a href="#rail-liar" class="mdl-tabs__tab">RAIL / LIAR</a>
+                        <a href="#css-triggers" class="mdl-tabs__tab">CSS Triggers</a>
+                    </div>
+
+                    <!-- 1st tab: Rendering Frame Pipeline -->
+                    <div class="mdl-tabs__panel is-active" id="rendering-frame-pipeline">
+                        <div class="mdl-grid">
+                            <div class="mdl-cell mdl-cell--12-col">
+                                <h3 class="remove-tb-margin">Rendering Frame Pipeline</h3>
+                            </div>
+                            <div class="mdl-cell mdl-cell--12-col">
+                                <em>The <strong>R</strong>endering <strong>F</strong>rame <strong>P</strong>ipeline (RFP) is composed by the following stages:</em>
+                            </div>
+                            <div class="mdl-cell mdl-cell--12-col">
+                                <img src="images/rfp-blocks.png" width="100%" />
+                            </div>
+                            <div class="mdl-cell mdl-cell--12-col">
+                                <em>The color legend corresponds to:</em>
+                            </div>
+                            <div class="mdl-cell mdl-cell--12-col">
+                                <img src="images/rfp-legend.png" width="100%" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2nd tab: Thresholds -->
+                    <div class="mdl-tabs__panel tab-panel-padding" id="thresholds">
+                        <div class="mdl-grid">
+                            <div class="mdl-cell mdl-cell--12-col">
+                                <h3 class="remove-tb-margin">Thresholds</h3>
+                            </div>
+                            <div class="mdl-cell mdl-cell--12-col">
+                                <em>The scripting phase in an animation stage should take ~3ms out of 10ms</em>
+                            </div>
+                            <div class="mdl-cell mdl-cell--12-col">
+                                <em>Scripting ~30% | Rendering ~60% | Painting ~20%</em>
+                            </div>
+                            <div class="mdl-cell mdl-cell--12-col">
+                                <table class="mdl-data-table mdl-js-data-table" width="100%">
+                                    <thead>
+                                        <tr class="thresholds-header">
+                                            <th class="mdl-data-table__cell--non-numeric">Threshold</th>
+                                            <th class="mdl-data-table__cell--non-numeric">Animation</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Threshold -->
+                                        <tr>
+                                            <td class="mdl-data-table__cell--non-numeric">
+                                                Total (aprox)
+                                            </td>
+                                            <td class="mdl-data-table__cell--non-numeric">
+                                                10ms
+                                            </td>
+                                        </tr>
+
+                                        <!-- Asset load / parse -->
+                                        <tr class="thresholds-asset-load-parse">
+                                            <td class="mdl-data-table__cell--non-numeric">
+                                                Asset load / parse
+                                            </td>
+                                            <td class="mdl-data-table__cell--non-numeric">
+                                                <span class="thresholds-avoid">Avoid</span>
+                                            </td>
+                                        </tr>
+                                        
+                                        <!-- Scripting -->
+                                        <tr class="thresholds-scripting">
+                                            <td class="mdl-data-table__cell--non-numeric">
+                                                JS: Parse
+                                            </td>
+                                            <td class="mdl-data-table__cell--non-numeric">
+                                                <span class="thresholds-avoid">Avoid</span>
+                                            </td>
+                                        </tr>
+                                        <tr class="thresholds-scripting">
+                                            <td class="mdl-data-table__cell--non-numeric">
+                                                JS: Execute
+                                            </td>
+                                            <td class="mdl-data-table__cell--non-numeric">
+                                                3ms
+                                            </td>
+                                        </tr>
+                                        <tr class="thresholds-scripting">
+                                            <td class="mdl-data-table__cell--non-numeric">
+                                                JS: GC
+                                            </td>
+                                            <td class="mdl-data-table__cell--non-numeric">
+                                                <span class="thresholds-avoid">Avoid</span>
+                                            </td>
+                                        </tr>
+
+                                        <!-- Rendering -->
+                                        <tr class="thresholds-rendering">
+                                            <td class="mdl-data-table__cell--non-numeric">
+                                                Blink: Style Calcs
+                                            </td>
+                                            <td class="mdl-data-table__cell--non-numeric">
+                                                1ms
+                                            </td>
+                                        </tr>
+                                        <tr class="thresholds-rendering">
+                                            <td class="mdl-data-table__cell--non-numeric">
+                                                Blink: Layout
+                                            </td>
+                                            <td class="mdl-data-table__cell--non-numeric">
+                                                3ms
+                                            </td>
+                                        </tr>
+                                        <tr class="thresholds-rendering">
+                                            <td class="mdl-data-table__cell--non-numeric">
+                                                Blink: Layer Management
+                                            </td>
+                                            <td class="mdl-data-table__cell--non-numeric">
+                                                2ms
+                                            </td>
+                                        </tr>
+
+                                        <!-- Painting -->
+                                        <tr class="thresholds-painting">
+                                            <td class="mdl-data-table__cell--non-numeric">
+                                                Blink: Paint
+                                            </td>
+                                            <td class="mdl-data-table__cell--non-numeric">
+                                                <span class="thresholds-avoid">Avoid</span>
+                                            </td>
+                                        </tr>
+                                        <tr class="thresholds-painting">
+                                            <td class="mdl-data-table__cell--non-numeric">
+                                                Compositor: Rasterize
+                                            </td>
+                                            <td class="mdl-data-table__cell--non-numeric">
+                                                <span class="thresholds-avoid">Avoid</span>
+                                            </td>
+                                        </tr>
+                                        <tr class="thresholds-painting">
+                                            <td class="mdl-data-table__cell--non-numeric">
+                                                Compositor: Image Decode
+                                            </td>
+                                            <td class="mdl-data-table__cell--non-numeric">
+                                                <span class="thresholds-avoid">Avoid</span>
+                                            </td>
+                                        </tr>
+                                        <tr class="thresholds-painting">
+                                            <td class="mdl-data-table__cell--non-numeric">
+                                                Compositor: Image Resize
+                                            </td>
+                                            <td class="mdl-data-table__cell--non-numeric">
+                                                <span class="thresholds-avoid">Avoid</span>
+                                            </td>
+                                        </tr>
+                                        <tr class="thresholds-painting">
+                                            <td class="mdl-data-table__cell--non-numeric">
+                                                Composite
+                                            </td>
+                                            <td class="mdl-data-table__cell--non-numeric">
+                                                2ms
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3rd tab: LIAR / RAIL -->
+                    <div class="mdl-tabs__panel tab-panel-padding" id="rail-liar">
+                        <div class="mdl-grid">
+                            <div class="mdl-cell mdl-cell--12-col">
+                                <h3 class="remove-tb-margin">RAIL Principles</h3>
+                            </div>
+                            <div class="mdl-cell mdl-cell--12-col">
+                                <em>RAIL is a user-centric performance model that breaks down the user's experience into key actions, helping developers and designers ensure a good user experience for each of these actions. By laying out a structure for thinking about performance, RAIL enables designers and developers to reliably target the work that has the highest impact on user experience.</em>
+                            </div>
+                            <div class="mdl-cell mdl-cell--12-col">
+                                <img src="images/rail.png" width="100%" />
+                            </div>
+                        </div>
+                        <div class="mdl-grid">
+                            <div class="mdl-cell mdl-cell--2-col centered">
+                                <button id="tt1" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
+                                    <i class="material-icons">help</i>
+                                </button>
+                                <div class="mdl-tooltip mdl-tooltip--top" for="tt1">
+                                    Line 1<br>Line 2
+                                </div>
+                            </div>
+                            <div class="mdl-cell mdl-cell--2-col centered">
+                                <button id="tt2" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
+                                    <i class="material-icons">help</i>
+                                </button>
+                                <div class="mdl-tooltip mdl-tooltip--top" for="tt2">
+                                    Line 1<br>Line 2
+                                </div>
+                            </div>
+                            <div class="mdl-cell mdl-cell--2-col centered">
+                                <button id="tt3" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
+                                    <i class="material-icons">help</i>
+                                </button>
+                                <div class="mdl-tooltip mdl-tooltip--top" for="tt3">
+                                    Line 1<br>Line 2
+                                </div>
+                            </div>
+                            <div class="mdl-cell mdl-cell--2-col centered">
+                                <button id="tt4" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
+                                    <i class="material-icons">help</i>
+                                </button>
+                                <div class="mdl-tooltip mdl-tooltip--top" for="tt4">
+                                    Line 1<br>Line 2
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4th tab: CSS Triggers -->
+                    <div class="mdl-tabs__panel tab-panel-padding" id="css-triggers">
+                        <div class="mdl-grid">
+                            <div class="mdl-cell mdl-cell--12-col">
+                                <h3 class="remove-tb-margin">CSS Triggers</h3>
+                            </div>
+                            <div class="mdl-cell mdl-cell--12-col">
+                                <em>Each CSS property affects the pipelines differently</em>
+                            </div>
+                            <div class="mdl-cell mdl-cell--12-col">
+                                <table class="mdl-data-table mdl-js-data-table" width="100%">
+                                    <thead>
+                                        <tr class="thresholds-header">
+                                            <th class="mdl-data-table__cell--non-numeric">Weight</th>
+                                            <th class="mdl-data-table__cell--non-numeric">Affects</th>
+                                            <th class="mdl-data-table__cell--non-numeric">Properties</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="mdl-data-table__cell--non-numeric">
+                                                Light
+                                            </td>
+                                            <td class="mdl-data-table__cell--non-numeric">
+                                                Composite
+                                            </td>
+                                            <td class="mdl-data-table__cell--non-numeric">
+                                                <em>transform</em> &amp; <em>opacity</em>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="mdl-data-table__cell--non-numeric">
+                                                Medium
+                                            </td>
+                                            <td class="mdl-data-table__cell--non-numeric">
+                                                Patin + Composite
+                                            </td>
+                                            <td class="mdl-data-table__cell--non-numeric">
+                                                <em>color</em>, <em>cursor</em>, etc.
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="mdl-data-table__cell--non-numeric">
+                                                Heavy
+                                            </td>
+                                            <td class="mdl-data-table__cell--non-numeric">
+                                                Layout + Paint + Composite
+                                            </td>
+                                            <td class="mdl-data-table__cell--non-numeric wrappable">
+                                                <em>width</em>, <em>height</em>, <em>margin-*</em>, <em>borders-*-style</em>, <em>borders-*-width</em>, <em>display</em>, <em>font-size</em>, <em>line-height</em>, <em>overflow-*</em>, <em>padding-*</em>, <em>position</em>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="mdl-cell mdl-cell--12-col">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Load browser action JS -->
+    <script src="popup.js"></script>
+</body>
 </html>
