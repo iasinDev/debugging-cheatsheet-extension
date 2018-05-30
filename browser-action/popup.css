@@ -1,3 +1,55 @@
 body {
-    width: 500px;
+    width: 800px !important;
+    height: 400px;
+}
+
+.no-focus:focus {
+    outline: none;
+}
+
+.tab-panel-padding {
+    padding: 0 12px;
+}
+
+.remove-tb-margin {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.thresholds-header {
+    background-color: #404040;
+}
+
+.thresholds-header > th.mdl-data-table__cell--non-numeric {
+    color: white;
+}
+
+.thresholds-asset-load-parse {
+    background-color: #E7EDFE;
+}
+
+.thresholds-scripting {
+    background-color: #EACA67;
+}
+
+.thresholds-rendering {
+    background-color: #9F80E1;
+}
+
+.thresholds-painting {
+    background-color: #81C371;
+}
+
+.thresholds-avoid {
+    color: darkred;
+    font-weight: bold;
+}
+
+.wrappable {
+    white-space: normal; 
+    word-wrap: break-word;
+}
+
+.centered {
+    text-align: center;
 }
