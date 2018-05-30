@@ -3,7 +3,7 @@
  */
 
 // Set listeners
-let btn = document.getElementById('myBtn');
+/*let btn = document.getElementById('myBtn');
 btn.onclick = function(element) {
     //let color = element.target.value;
     let color = '#cdcdcd';
@@ -16,4 +16,4 @@ btn.onclick = function(element) {
             }
         );
     });
-};
+};*/
