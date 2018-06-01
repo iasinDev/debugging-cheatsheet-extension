@@ -3,17 +3,12 @@
  */
 
 // Set listeners
-/*let btn = document.getElementById('myBtn');
-btn.onclick = function(element) {
-    //let color = element.target.value;
-    let color = '#cdcdcd';
-    chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-        console.log('tabs: ', tabs);  // tabs[0].width, tabs[0].height
-        chrome.tabs.executeScript(
-            tabs[0].id,
-            {
-                code: 'document.body.style.backgroundColor = "' + color + '";'
-            }
-        );
-    });
-};*/
+let helpBtn = document.getElementById('help');
+helpBtn.onclick = function(element) {
+    element.target.classList.add('help-visible-option');
+};
+
+let aboutBtn = document.getElementById('about');
+aboutBtn.onclick = function(element) {
+    element.target.classList.add('help-visible-option');
+};
